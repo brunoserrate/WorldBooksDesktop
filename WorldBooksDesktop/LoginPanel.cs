@@ -10,11 +10,23 @@ using System.Windows.Forms;
 
 namespace WorldBooksDesktop
 {
-    public partial class Form1 : Form
+    public partial class LoginPanel : Form
     {
-        public Form1()
+        public LoginPanel()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            this.Hide();
+            
+            MainPanel form2 = new MainPanel();
+            form2.ShowDialog();
+
+            this.Close();
+
         }
     }
 }
