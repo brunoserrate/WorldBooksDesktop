@@ -104,6 +104,30 @@ namespace WorldBooksDesktop
 
         private void editarBtn_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(idTxtBox.Text))
+            {
+                MessageBox.Show("Selecione um usuário para editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            UserService userService = new UserService();
+
+            var response = userService.GetUser(int.Parse(idTxtBox.Text));
+
+            if (!response.Success)
+            {
+                MessageBox.Show("Erro ao buscar usuário: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            User user = (User)response.Data;
+
+            if (!user.IsActivated) {
+                MessageBox.Show("Usuário desativado, não é possível editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             operacoesGroup.Visible = true;
             operacaoLabel.Text = "Editar";
             operacaoLabel.BackColor = ProjectColors.ConfirmBackground;
@@ -119,17 +143,25 @@ namespace WorldBooksDesktop
                 return;
             }
 
+            UserService userService = new UserService();
+
+            var responseCheck = userService.GetUser(int.Parse(idTxtBox.Text));
+
+            if (!responseCheck.Success)
+            {
+                MessageBox.Show("Erro ao buscar usuário: " + responseCheck.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            User user = (User)responseCheck.Data;
+
+            if (!user.IsActivated) {
+                MessageBox.Show("Usuário já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             operacaoLabel.Text = "Deletar";
             operacaoLabel.BackColor = ProjectColors.CancelBackground;
-
-            User user = new User()
-            {
-                Id = int.Parse(idTxtBox.Text),
-                Name = nomeTxtBox.Text,
-                Username = usuarioTxtBox.Text,
-                Email = emailTxtBox.Text,
-                Password = senhaTxtBox.Text
-            };
 
             var response = MessageBox.Show("Deseja realmente deletar o usuário: " + user.Id + " - " + user.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -140,7 +172,6 @@ namespace WorldBooksDesktop
                 return;
             }
 
-            UserService userService = new UserService();
             var userResponse = userService.DeleteUser(int.Parse(idTxtBox.Text));
 
             if (!userResponse.Success)
