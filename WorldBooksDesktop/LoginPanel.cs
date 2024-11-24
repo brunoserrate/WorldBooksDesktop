@@ -17,30 +17,15 @@ namespace WorldBooksDesktop
         {
             this.Hide();
 
-            MainPanel form2 = new MainPanel();
-            form2.ShowDialog();
+            MainPanel mainPanel = new MainPanel();
+            mainPanel.ShowDialog();
 
             this.Close();
         }
 
         private void LoginPanel_Load(object sender, EventArgs e)
         {
-            string connectionString = "";
-            try
-            {
-                Env.Load();
-
-                string host = Environment.GetEnvironmentVariable("DB_HOST");
-                string database = Environment.GetEnvironmentVariable("DB_DATABASE");
-                string user = Environment.GetEnvironmentVariable("DB_USERNAME");
-                string password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-
-                connectionString = $"Server={host};Database={database};User Id={user};Password={password};";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao carregar o arquivo .env: {ex.Message}");
-            }
+            string connectionString = EnvHolder.Instance.ConnectionString;
 
             DatabaseConnector.Instance(connectionString);
         }
@@ -49,6 +34,12 @@ namespace WorldBooksDesktop
         {
             string username = loginTxtBox.Text;
             string password = passwordTxtBox.Text;
+
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                password = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
 
             MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
             DatabaseConnector.Instance("").OpenConnection(connection);
@@ -59,21 +50,18 @@ namespace WorldBooksDesktop
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            if (reader.HasRows)
-            {
-                MessageBox.Show("Login efetuado com sucesso!");
-            }
-            else
+            if (!reader.HasRows)
             {
                 MessageBox.Show("Usuário ou senha inválidos!");
+                return;
             }
 
             DatabaseConnector.Instance("").CloseConnection(connection);
 
             this.Hide();
 
-            MainPanel form2 = new MainPanel();
-            form2.ShowDialog();
+            MainPanel mainPanel = new MainPanel();
+            mainPanel.ShowDialog();
 
             this.Close();
         }

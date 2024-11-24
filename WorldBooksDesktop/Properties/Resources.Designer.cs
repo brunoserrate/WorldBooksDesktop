@@ -59,15 +59,5 @@ namespace WorldBooksDesktop.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap received_1382317615190557 {
-            get {
-                object obj = ResourceManager.GetObject("received_1382317615190557", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

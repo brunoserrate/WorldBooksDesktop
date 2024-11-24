@@ -16,7 +16,7 @@ namespace WorldBooksDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginPanel());
+            Application.Run(new MainPanel()); // TODO: Change this to LoginPanel
         }
     }
 }

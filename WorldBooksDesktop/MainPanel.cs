@@ -17,19 +17,16 @@ namespace WorldBooksDesktop
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            LoginPanel form1 = new LoginPanel();
-            form1.ShowDialog();
-
-            this.Close();
-        }
-
         private void MainPanel_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UsuariosPanel usuariosPanel = new UsuariosPanel();
+            usuariosPanel.MdiParent = this;
+            usuariosPanel.Show();
         }
     }
 }
