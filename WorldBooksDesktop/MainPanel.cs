@@ -28,5 +28,12 @@ namespace WorldBooksDesktop
             usuariosPanel.MdiParent = this;
             usuariosPanel.Show();
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClientesPanel clientesPanel = new ClientesPanel();
+            clientesPanel.MdiParent = this;
+            clientesPanel.Show();
+        }
     }
 }
