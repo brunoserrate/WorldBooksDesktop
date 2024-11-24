@@ -30,6 +30,10 @@ namespace WorldBooksDesktop.Repository
                     updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                     deleted_at timestamp NULL DEFAULT NULL, PRIMARY KEY (id)
                 )", connection);
+
+            cmd.ExecuteNonQuery();
+
+            DatabaseConnector.Instance("").CloseConnection(connection);
         }
 
         public Response Create(object obj)
