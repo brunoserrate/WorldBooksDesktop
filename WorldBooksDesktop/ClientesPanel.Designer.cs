@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientesPanel));
-            this.usuariosDataGridView = new System.Windows.Forms.DataGridView();
+            this.clientesDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.incluirBtn = new System.Windows.Forms.ToolStripButton();
             this.editarBtn = new System.Windows.Forms.ToolStripButton();
             this.deleteBtn = new System.Windows.Forms.ToolStripButton();
             this.closeBtn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.senhaTxtBox = new System.Windows.Forms.TextBox();
+            this.enderecoTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.emailTxtBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.usuarioTxtBox = new System.Windows.Forms.TextBox();
+            this.telefoneTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nomeTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,20 +50,20 @@
             this.cancelarBtn = new System.Windows.Forms.Button();
             this.operacoesGroup = new System.Windows.Forms.GroupBox();
             this.operacaoLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.usuariosDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.operacoesGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // usuariosDataGridView
+            // clientesDataGridView
             // 
-            this.usuariosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usuariosDataGridView.Location = new System.Drawing.Point(12, 229);
-            this.usuariosDataGridView.Name = "usuariosDataGridView";
-            this.usuariosDataGridView.Size = new System.Drawing.Size(776, 178);
-            this.usuariosDataGridView.TabIndex = 0;
-            this.usuariosDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.usuariosDataGridView_CellEnter);
+            this.clientesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.clientesDataGridView.Location = new System.Drawing.Point(12, 229);
+            this.clientesDataGridView.Name = "clientesDataGridView";
+            this.clientesDataGridView.Size = new System.Drawing.Size(776, 178);
+            this.clientesDataGridView.TabIndex = 0;
+            this.clientesDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.usuariosDataGridView_CellEnter);
             // 
             // toolStrip1
             // 
@@ -116,11 +116,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.senhaTxtBox);
+            this.groupBox1.Controls.Add(this.enderecoTxtBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.emailTxtBox);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.usuarioTxtBox);
+            this.groupBox1.Controls.Add(this.telefoneTxtBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.nomeTxtBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -133,22 +133,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Usuário";
             // 
-            // senhaTxtBox
+            // enderecoTxtBox
             // 
-            this.senhaTxtBox.Location = new System.Drawing.Point(444, 72);
-            this.senhaTxtBox.Name = "senhaTxtBox";
-            this.senhaTxtBox.PasswordChar = '*';
-            this.senhaTxtBox.Size = new System.Drawing.Size(280, 20);
-            this.senhaTxtBox.TabIndex = 9;
+            this.enderecoTxtBox.Location = new System.Drawing.Point(444, 72);
+            this.enderecoTxtBox.Name = "enderecoTxtBox";
+            this.enderecoTxtBox.Size = new System.Drawing.Size(280, 20);
+            this.enderecoTxtBox.TabIndex = 9;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(388, 75);
+            this.label4.Location = new System.Drawing.Point(366, 75);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Senha";
+            this.label4.Text = "End. Principal";
             // 
             // emailTxtBox
             // 
@@ -160,27 +159,27 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(388, 49);
+            this.label5.Location = new System.Drawing.Point(366, 49);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Email";
             // 
-            // usuarioTxtBox
+            // telefoneTxtBox
             // 
-            this.usuarioTxtBox.Location = new System.Drawing.Point(63, 72);
-            this.usuarioTxtBox.Name = "usuarioTxtBox";
-            this.usuarioTxtBox.Size = new System.Drawing.Size(280, 20);
-            this.usuarioTxtBox.TabIndex = 5;
+            this.telefoneTxtBox.Location = new System.Drawing.Point(63, 72);
+            this.telefoneTxtBox.Name = "telefoneTxtBox";
+            this.telefoneTxtBox.Size = new System.Drawing.Size(280, 20);
+            this.telefoneTxtBox.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(7, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Usuário";
+            this.label3.Text = "Telefone";
             // 
             // nomeTxtBox
             // 
@@ -270,11 +269,11 @@
             this.Controls.Add(this.operacoesGroup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.usuariosDataGridView);
+            this.Controls.Add(this.clientesDataGridView);
             this.Name = "ClientesPanel";
             this.Text = "World Books - Clientes";
             this.Load += new System.EventHandler(this.ClientesPanel_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.usuariosDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -287,7 +286,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView usuariosDataGridView;
+        private System.Windows.Forms.DataGridView clientesDataGridView;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton incluirBtn;
         private System.Windows.Forms.ToolStripButton editarBtn;
@@ -300,11 +299,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox idTxtBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox senhaTxtBox;
+        private System.Windows.Forms.TextBox enderecoTxtBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox emailTxtBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox usuarioTxtBox;
+        private System.Windows.Forms.TextBox telefoneTxtBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox operacoesGroup;
         private System.Windows.Forms.Label operacaoLabel;

@@ -100,11 +100,13 @@ namespace WorldBooksDesktop.Repository
 
             if (response.Success == false || response.Data == null)
             {
+                DatabaseConnector.Instance("").CloseConnection(connection);
                 return response;
             }
 
             if (((User)response.Data).DeletedAt != null)
             {
+                DatabaseConnector.Instance("").CloseConnection(connection);
                 return new Response(false, "Usuário já deletado", null);
             }
 

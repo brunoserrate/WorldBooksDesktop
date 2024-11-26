@@ -34,23 +34,23 @@ namespace WorldBooksDesktop
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
-            User user = new User()
+            Client client = new Client()
             {
                 Id = 0,
                 Name = nomeTxtBox.Text,
-                Username = usuarioTxtBox.Text,
+                Phone = telefoneTxtBox.Text,
                 Email = emailTxtBox.Text,
-                Password = senhaTxtBox.Text
+                Address = enderecoTxtBox.Text
             };
 
             if (operacaoLabel.Text.Contains("Incluir"))
             {
-                UserService userService = new UserService();
-                var response = userService.Create(user);
+                ClientService clientService = new ClientService();
+                var response = clientService.Create(client);
 
                 if (!response.Success)
                 {
-                    MessageBox.Show("Erro ao criar usuário: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Erro ao criar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -58,13 +58,13 @@ namespace WorldBooksDesktop
             }
             else if (operacaoLabel.Text.Contains("Editar"))
             {
-                user.Id = int.Parse(idTxtBox.Text);
+                client.Id = int.Parse(idTxtBox.Text);
 
-                UserService userService = new UserService();
-                var response = userService.UpdateUser(user);
+                ClientService clientService = new ClientService();
+                var response = clientService.UpdateClient(client);
                 if (!response.Success)
                 {
-                    MessageBox.Show("Erro ao atualizar usuário: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Erro ao atualizar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -107,24 +107,24 @@ namespace WorldBooksDesktop
 
             if (string.IsNullOrEmpty(idTxtBox.Text))
             {
-                MessageBox.Show("Selecione um usuário para editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione um cliente para editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            UserService userService = new UserService();
+            ClientService clientService = new ClientService();
 
-            var response = userService.GetUser(int.Parse(idTxtBox.Text));
+            var response = clientService.GetClient(int.Parse(idTxtBox.Text));
 
             if (!response.Success)
             {
-                MessageBox.Show("Erro ao buscar usuário: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao buscar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             User user = (User)response.Data;
 
             if (!user.IsActivated) {
-                MessageBox.Show("Usuário desativado, não é possível editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cliente desativado, não é possível editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -139,31 +139,31 @@ namespace WorldBooksDesktop
         {
             if (string.IsNullOrEmpty(idTxtBox.Text))
             {
-                MessageBox.Show("Selecione um usuário para deletar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione um cliente para deletar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            UserService userService = new UserService();
+            ClientService clientService = new ClientService();
 
-            var responseCheck = userService.GetUser(int.Parse(idTxtBox.Text));
+            var responseCheck = clientService.GetClient(int.Parse(idTxtBox.Text));
 
             if (!responseCheck.Success)
             {
-                MessageBox.Show("Erro ao buscar usuário: " + responseCheck.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao buscar cliente: " + responseCheck.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             User user = (User)responseCheck.Data;
 
             if (!user.IsActivated) {
-                MessageBox.Show("Usuário já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cliente já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             operacaoLabel.Text = "Deletar";
             operacaoLabel.BackColor = ProjectColors.CancelBackground;
 
-            var response = MessageBox.Show("Deseja realmente deletar o usuário: " + user.Id + " - " + user.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var response = MessageBox.Show("Deseja realmente deletar o cliente: " + user.Id + " - " + user.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (response == DialogResult.No)
             {
@@ -172,11 +172,11 @@ namespace WorldBooksDesktop
                 return;
             }
 
-            var userResponse = userService.DeleteUser(int.Parse(idTxtBox.Text));
+            var userResponse = clientService.DeleteClient(int.Parse(idTxtBox.Text));
 
             if (!userResponse.Success)
             {
-                MessageBox.Show("Erro ao deletar usuário: " + userResponse.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao deletar cliente: " + userResponse.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 operacaoLabel.BackColor = ProjectColors.PrimaryBackground;
                 operacaoLabel.Text = "Operações";
                 return;
@@ -215,10 +215,11 @@ namespace WorldBooksDesktop
             operacaoLabel.BackColor = ProjectColors.PrimaryBackground;
             operacoesGroup.Visible = false;
 
-            idTxtBox.Text = usuariosDataGridView.Rows[e.RowIndex].Cells[0].Value?.ToString();
-            nomeTxtBox.Text = usuariosDataGridView.Rows[e.RowIndex].Cells[1].Value?.ToString();
-            usuarioTxtBox.Text = usuariosDataGridView.Rows[e.RowIndex].Cells[2].Value?.ToString();
-            emailTxtBox.Text = usuariosDataGridView.Rows[e.RowIndex].Cells[3].Value?.ToString();
+            idTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[0].Value?.ToString();
+            nomeTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[1].Value?.ToString();
+            telefoneTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[2].Value?.ToString();
+            emailTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[3].Value?.ToString();
+            enderecoTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[4].Value?.ToString();
 
             DesabilitarCamposEditaveis();
         }
@@ -228,38 +229,41 @@ namespace WorldBooksDesktop
 
         private void CriarColunasDataGrid()
         {
-            usuariosDataGridView.Columns.Clear();
-            usuariosDataGridView.Columns.Add("Id", "Id");
-            usuariosDataGridView.Columns.Add("Name", "Nome");
-            usuariosDataGridView.Columns.Add("Username", "Usuário");
-            usuariosDataGridView.Columns.Add("Email", "Email");
-            usuariosDataGridView.Columns.Add("IsActivated", "Ativo");
-            usuariosDataGridView.Columns.Add("CreatedAt", "Criado em");
-            usuariosDataGridView.Columns.Add("UpdatedAt", "Atualizado em");
-            usuariosDataGridView.Columns.Add("DeletedAt", "Deletado em");
+            clientesDataGridView.Columns.Clear();
+            clientesDataGridView.Columns.Add("Id", "Id");
+            clientesDataGridView.Columns.Add("Name", "Nome");
+            clientesDataGridView.Columns.Add("Phone", "Telefone");
+            clientesDataGridView.Columns.Add("Email", "Email");
+            clientesDataGridView.Columns.Add("Address", "End. Principal");
+            clientesDataGridView.Columns.Add("IsActivated", "Ativo");
+            clientesDataGridView.Columns.Add("CreatedAt", "Criado em");
+            clientesDataGridView.Columns.Add("UpdatedAt", "Atualizado em");
+            clientesDataGridView.Columns.Add("DeletedAt", "Deletado em");
         }
 
         private void CarregarDados()
         {
-            UserService userService = new UserService();
-            var response = userService.GetUsers();
+            ClientService clientService = new ClientService();
+            var response = clientService.GetClients();
+
             if (response.Success)
             {
-                var users = (List<User>)response.Data;
-                usuariosDataGridView.Rows.Clear();
-                foreach (var user in users)
+                List<Client> clients = (List<Client>)response.Data;
+                clientesDataGridView.Rows.Clear();
+                foreach (Client client in clients)
                 {
-                    DataGridViewRow row = (DataGridViewRow)usuariosDataGridView.Rows[0].Clone();
-                    row.Cells[0].Value = user.Id;
-                    row.Cells[1].Value = user.Name;
-                    row.Cells[2].Value = user.Username;
-                    row.Cells[3].Value = user.Email;
-                    row.Cells[4].Value = user.IsActivated ? "Sim" : "Não";
-                    row.Cells[5].Value = user.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss");
-                    row.Cells[6].Value = user.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss");
-                    row.Cells[7].Value = user.DeletedAt != null ? user.DeletedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+                    DataGridViewRow row = (DataGridViewRow)clientesDataGridView.Rows[0].Clone();
+                    row.Cells[0].Value = client.Id;
+                    row.Cells[1].Value = client.Name;
+                    row.Cells[2].Value = client.Phone;
+                    row.Cells[3].Value = client.Email;
+                    row.Cells[4].Value = client.Address;
+                    row.Cells[5].Value = client.IsActivated ? "Sim" : "Não";
+                    row.Cells[6].Value = client.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss");
+                    row.Cells[7].Value = client.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss");
+                    row.Cells[8].Value = client.DeletedAt != null ? client.DeletedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
 
-                    usuariosDataGridView.Rows.Add(row);
+                    clientesDataGridView.Rows.Add(row);
                 }
             }
         }
@@ -268,25 +272,25 @@ namespace WorldBooksDesktop
         {
             idTxtBox.Text = "";
             nomeTxtBox.Text = "";
-            usuarioTxtBox.Text = "";
+            telefoneTxtBox.Text = "";
             emailTxtBox.Text = "";
-            senhaTxtBox.Text = "";
+            enderecoTxtBox.Text = "";
         }
 
         private void HabilitarCamposEditaveis()
         {
             nomeTxtBox.Enabled = true;
-            usuarioTxtBox.Enabled = true;
+            telefoneTxtBox.Enabled = true;
             emailTxtBox.Enabled = true;
-            senhaTxtBox.Enabled = true;
+            enderecoTxtBox.Enabled = true;
         }
 
         private void DesabilitarCamposEditaveis()
         {
             nomeTxtBox.Enabled = false;
-            usuarioTxtBox.Enabled = false;
+            telefoneTxtBox.Enabled = false;
             emailTxtBox.Enabled = false;
-            senhaTxtBox.Enabled = false;
+            enderecoTxtBox.Enabled = false;
         }
         #endregion
     }
