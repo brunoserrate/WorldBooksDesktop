@@ -1,6 +1,6 @@
 ﻿namespace WorldBooksDesktop
 {
-    partial class ClientesPanel
+    partial class ProdutosPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientesPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProdutosPanel));
             this.clientesDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.incluirBtn = new System.Windows.Forms.ToolStripButton();
@@ -36,11 +36,7 @@
             this.deleteBtn = new System.Windows.Forms.ToolStripButton();
             this.closeBtn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.enderecoTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.emailTxtBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.telefoneTxtBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nomeTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,16 +46,22 @@
             this.cancelarBtn = new System.Windows.Forms.Button();
             this.operacoesGroup = new System.Windows.Forms.GroupBox();
             this.operacaoLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.precoNumeric = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.operacoesGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.precoNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // clientesDataGridView
             // 
             this.clientesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.clientesDataGridView.Location = new System.Drawing.Point(12, 229);
+            this.clientesDataGridView.Location = new System.Drawing.Point(12, 392);
             this.clientesDataGridView.Name = "clientesDataGridView";
             this.clientesDataGridView.Size = new System.Drawing.Size(776, 178);
             this.clientesDataGridView.TabIndex = 0;
@@ -116,11 +118,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.enderecoTxtBox);
+            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.precoNumeric);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.emailTxtBox);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.telefoneTxtBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.nomeTxtBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -128,64 +130,34 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(13, 56);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(775, 109);
+            this.groupBox1.Size = new System.Drawing.Size(775, 283);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Cliente";
-            // 
-            // enderecoTxtBox
-            // 
-            this.enderecoTxtBox.Location = new System.Drawing.Point(444, 72);
-            this.enderecoTxtBox.Name = "enderecoTxtBox";
-            this.enderecoTxtBox.Size = new System.Drawing.Size(280, 20);
-            this.enderecoTxtBox.TabIndex = 9;
+            this.groupBox1.Text = "Livro";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(366, 75);
+            this.label4.Location = new System.Drawing.Point(7, 236);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "End. Principal";
-            // 
-            // emailTxtBox
-            // 
-            this.emailTxtBox.Location = new System.Drawing.Point(444, 46);
-            this.emailTxtBox.Name = "emailTxtBox";
-            this.emailTxtBox.Size = new System.Drawing.Size(280, 20);
-            this.emailTxtBox.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(366, 49);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Email";
-            // 
-            // telefoneTxtBox
-            // 
-            this.telefoneTxtBox.Location = new System.Drawing.Point(63, 72);
-            this.telefoneTxtBox.Name = "telefoneTxtBox";
-            this.telefoneTxtBox.Size = new System.Drawing.Size(280, 20);
-            this.telefoneTxtBox.TabIndex = 5;
+            this.label4.Text = "Qtd. Estoque";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 75);
+            this.label3.Location = new System.Drawing.Point(7, 208);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Telefone";
+            this.label3.Text = "Preço";
             // 
             // nomeTxtBox
             // 
-            this.nomeTxtBox.Location = new System.Drawing.Point(63, 46);
+            this.nomeTxtBox.Location = new System.Drawing.Point(82, 46);
             this.nomeTxtBox.Name = "nomeTxtBox";
-            this.nomeTxtBox.Size = new System.Drawing.Size(280, 20);
+            this.nomeTxtBox.Size = new System.Drawing.Size(684, 20);
             this.nomeTxtBox.TabIndex = 3;
             // 
             // label2
@@ -200,7 +172,7 @@
             // idTxtBox
             // 
             this.idTxtBox.Enabled = false;
-            this.idTxtBox.Location = new System.Drawing.Point(63, 20);
+            this.idTxtBox.Location = new System.Drawing.Point(82, 20);
             this.idTxtBox.Name = "idTxtBox";
             this.idTxtBox.ReadOnly = true;
             this.idTxtBox.Size = new System.Drawing.Size(100, 20);
@@ -241,7 +213,7 @@
             // 
             this.operacoesGroup.Controls.Add(this.cancelarBtn);
             this.operacoesGroup.Controls.Add(this.confirmBtn);
-            this.operacoesGroup.Location = new System.Drawing.Point(604, 182);
+            this.operacoesGroup.Location = new System.Drawing.Point(604, 345);
             this.operacoesGroup.Name = "operacoesGroup";
             this.operacoesGroup.Size = new System.Drawing.Size(184, 41);
             this.operacoesGroup.TabIndex = 5;
@@ -259,26 +231,71 @@
             this.operacaoLabel.Text = "Consulta";
             this.operacaoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ClientesPanel
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(82, 82);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(684, 100);
+            this.textBox1.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Descrição";
+            // 
+            // precoNumeric
+            // 
+            this.precoNumeric.DecimalPlaces = 2;
+            this.precoNumeric.Location = new System.Drawing.Point(82, 206);
+            this.precoNumeric.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            131072});
+            this.precoNumeric.Name = "precoNumeric";
+            this.precoNumeric.Size = new System.Drawing.Size(146, 20);
+            this.precoNumeric.TabIndex = 12;
+            this.precoNumeric.ThousandsSeparator = true;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(82, 234);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(146, 20);
+            this.numericUpDown2.TabIndex = 13;
+            // 
+            // ProdutosPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(802, 421);
+            this.ClientSize = new System.Drawing.Size(802, 587);
             this.Controls.Add(this.operacaoLabel);
             this.Controls.Add(this.operacoesGroup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.clientesDataGridView);
-            this.Name = "ClientesPanel";
-            this.Text = "World Books - Clientes";
-            this.Load += new System.EventHandler(this.ClientesPanel_Load);
+            this.Name = "ProdutosPanel";
+            this.Text = "World Books - Livros";
+            this.Load += new System.EventHandler(this.ProdutosPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.operacoesGroup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.precoNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,13 +316,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox idTxtBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox enderecoTxtBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox emailTxtBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox telefoneTxtBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox operacoesGroup;
         private System.Windows.Forms.Label operacaoLabel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown precoNumeric;
     }
 }

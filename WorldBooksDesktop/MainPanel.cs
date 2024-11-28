@@ -39,5 +39,14 @@ namespace WorldBooksDesktop
             };
             clientesPanel.Show();
         }
+
+        private void livrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProdutosPanel produtosPanel = new ProdutosPanel
+            {
+                MdiParent = this
+            };
+            produtosPanel.Show();
+        }
     }
 }
