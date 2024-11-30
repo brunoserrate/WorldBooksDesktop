@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProdutosPanel));
-            this.clientesDataGridView = new System.Windows.Forms.DataGridView();
+            this.produtosDataGridView = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.incluirBtn = new System.Windows.Forms.ToolStripButton();
             this.editarBtn = new System.Windows.Forms.ToolStripButton();
@@ -50,7 +50,7 @@
             this.cancelarBtn = new System.Windows.Forms.Button();
             this.operacoesGroup = new System.Windows.Forms.GroupBox();
             this.operacaoLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qtdEstoqueNumeric)).BeginInit();
@@ -58,14 +58,14 @@
             this.operacoesGroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // clientesDataGridView
+            // produtosDataGridView
             // 
-            this.clientesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.clientesDataGridView.Location = new System.Drawing.Point(12, 392);
-            this.clientesDataGridView.Name = "clientesDataGridView";
-            this.clientesDataGridView.Size = new System.Drawing.Size(776, 178);
-            this.clientesDataGridView.TabIndex = 0;
-            this.clientesDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.usuariosDataGridView_CellEnter);
+            this.produtosDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.produtosDataGridView.Location = new System.Drawing.Point(12, 392);
+            this.produtosDataGridView.Name = "produtosDataGridView";
+            this.produtosDataGridView.Size = new System.Drawing.Size(776, 178);
+            this.produtosDataGridView.TabIndex = 0;
+            this.produtosDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.produtosDataGridView_CellEnter);
             // 
             // toolStrip1
             // 
@@ -284,11 +284,11 @@
             this.Controls.Add(this.operacoesGroup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.clientesDataGridView);
+            this.Controls.Add(this.produtosDataGridView);
             this.Name = "ProdutosPanel";
             this.Text = "World Books - Livros";
             this.Load += new System.EventHandler(this.ProdutosPanel_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.produtosDataGridView)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -303,7 +303,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView clientesDataGridView;
+        private System.Windows.Forms.DataGridView produtosDataGridView;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton incluirBtn;
         private System.Windows.Forms.ToolStripButton editarBtn;

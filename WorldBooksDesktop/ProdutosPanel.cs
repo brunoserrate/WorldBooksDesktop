@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorldBooksDesktop.Service;
 using WorldBooksDesktop.Models;
@@ -34,23 +28,23 @@ namespace WorldBooksDesktop
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
-            Client client = new Client()
+            Product product = new Product()
             {
                 Id = 0,
                 Name = nomeTxtBox.Text,
-                // Phone = telefoneTxtBox.Text,
-                // Email = emailTxtBox.Text,
-                // Address = enderecoTxtBox.Text
+                Description = descricaoTxtBox.Text,
+                Price = precoNumeric.Value,
+                QuantityStock = (int) qtdEstoqueNumeric.Value
             };
 
             if (operacaoLabel.Text.Contains("Incluir"))
             {
-                ClientService clientService = new ClientService();
-                var response = clientService.Create(client);
+                ProductService productService = new ProductService();
+                var response = productService.Create(product);
 
                 if (!response.Success)
                 {
-                    MessageBox.Show("Erro ao criar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Erro ao criar produto: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -58,13 +52,13 @@ namespace WorldBooksDesktop
             }
             else if (operacaoLabel.Text.Contains("Editar"))
             {
-                client.Id = int.Parse(idTxtBox.Text);
+                product.Id = int.Parse(idTxtBox.Text);
 
-                ClientService clientService = new ClientService();
-                var response = clientService.UpdateClient(client);
+                ProductService productService = new ProductService();
+                var response = productService.UpdateProduct(product);
                 if (!response.Success)
                 {
-                    MessageBox.Show("Erro ao atualizar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Erro ao atualizar produto: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -107,24 +101,24 @@ namespace WorldBooksDesktop
 
             if (string.IsNullOrEmpty(idTxtBox.Text))
             {
-                MessageBox.Show("Selecione um cliente para editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione um produto para editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            ClientService clientService = new ClientService();
+            ProductService productService = new ProductService();
 
-            var response = clientService.GetClient(int.Parse(idTxtBox.Text));
+            var response = productService.GetProduct(int.Parse(idTxtBox.Text));
 
             if (!response.Success)
             {
-                MessageBox.Show("Erro ao buscar cliente: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao buscar produto: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            User user = (User)response.Data;
+            Product product = (Product)response.Data;
 
-            if (!user.IsActivated) {
-                MessageBox.Show("Cliente desativado, não é possível editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!product.IsActivated) {
+                MessageBox.Show("Produto desativado, não é possível editar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -139,31 +133,31 @@ namespace WorldBooksDesktop
         {
             if (string.IsNullOrEmpty(idTxtBox.Text))
             {
-                MessageBox.Show("Selecione um cliente para deletar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione um produto para deletar", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            ClientService clientService = new ClientService();
+            ProductService productService = new ProductService();
 
-            var responseCheck = clientService.GetClient(int.Parse(idTxtBox.Text));
+            var responseCheck = productService.GetProduct(int.Parse(idTxtBox.Text));
 
             if (!responseCheck.Success)
             {
-                MessageBox.Show("Erro ao buscar cliente: " + responseCheck.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao buscar produto: " + responseCheck.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            User user = (User)responseCheck.Data;
+            Product produto = (Product) responseCheck.Data;
 
-            if (!user.IsActivated) {
-                MessageBox.Show("Cliente já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!produto.IsActivated) {
+                MessageBox.Show("Produto já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             operacaoLabel.Text = "Deletar";
             operacaoLabel.BackColor = ProjectColors.CancelBackground;
 
-            var response = MessageBox.Show("Deseja realmente deletar o cliente: " + user.Id + " - " + user.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var response = MessageBox.Show("Deseja realmente deletar o produto: " + produto.Id + " - " + produto.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (response == DialogResult.No)
             {
@@ -172,17 +166,17 @@ namespace WorldBooksDesktop
                 return;
             }
 
-            var userResponse = clientService.DeleteClient(int.Parse(idTxtBox.Text));
+            var produtoResponse = productService.DeleteProduct(int.Parse(idTxtBox.Text));
 
-            if (!userResponse.Success)
+            if (!produtoResponse.Success)
             {
-                MessageBox.Show("Erro ao deletar cliente: " + userResponse.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao deletar produto: " + produtoResponse.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 operacaoLabel.BackColor = ProjectColors.PrimaryBackground;
                 operacaoLabel.Text = "Operações";
                 return;
             }
 
-            MessageBox.Show(userResponse.Message, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(produtoResponse.Message, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             operacoesGroup.Visible = false;
             LimparCampos();
@@ -199,7 +193,7 @@ namespace WorldBooksDesktop
             this.Close();
         }
 
-        private void usuariosDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void produtosDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (operacaoLabel.Text.Contains("Incluir") || operacaoLabel.Text.Contains("Editar") )
             {
@@ -211,15 +205,33 @@ namespace WorldBooksDesktop
                 return;
             }
 
+            var id = produtosDataGridView.Rows[e.RowIndex].Cells[0].Value;
+
+            if (id == null)
+            {
+                return;
+            }
+
             operacaoLabel.Text = "Visualizar";
             operacaoLabel.BackColor = ProjectColors.PrimaryBackground;
             operacoesGroup.Visible = false;
 
-            idTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[0].Value?.ToString();
-            nomeTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[1].Value?.ToString();
-            // telefoneTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[2].Value?.ToString();
-            // emailTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[3].Value?.ToString();
-            // enderecoTxtBox.Text = clientesDataGridView.Rows[e.RowIndex].Cells[4].Value?.ToString();
+            ProductService productService = new ProductService();
+
+            var response = productService.GetProduct(int.Parse(produtosDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            if (!response.Success)
+            {
+                MessageBox.Show("Erro ao buscar produto: " + response.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Product product = (Product) response.Data;
+
+            idTxtBox.Text = product.Id.ToString();
+            nomeTxtBox.Text = product.Name;
+            descricaoTxtBox.Text = product.Description;
+            precoNumeric.Value = product.Price;
+            qtdEstoqueNumeric.Value = product.QuantityStock;
 
             DesabilitarCamposEditaveis();
         }
@@ -229,41 +241,39 @@ namespace WorldBooksDesktop
 
         private void CriarColunasDataGrid()
         {
-            clientesDataGridView.Columns.Clear();
-            clientesDataGridView.Columns.Add("Id", "Id");
-            clientesDataGridView.Columns.Add("Name", "Nome");
-            clientesDataGridView.Columns.Add("Phone", "Telefone");
-            clientesDataGridView.Columns.Add("Email", "Email");
-            clientesDataGridView.Columns.Add("Address", "End. Principal");
-            clientesDataGridView.Columns.Add("IsActivated", "Ativo");
-            clientesDataGridView.Columns.Add("CreatedAt", "Criado em");
-            clientesDataGridView.Columns.Add("UpdatedAt", "Atualizado em");
-            clientesDataGridView.Columns.Add("DeletedAt", "Deletado em");
+            produtosDataGridView.Columns.Clear();
+            produtosDataGridView.Columns.Add("Id", "Id");
+            produtosDataGridView.Columns.Add("Name", "Nome");
+            produtosDataGridView.Columns.Add("Price", "Preço");
+            produtosDataGridView.Columns.Add("QuantityStock", "Qtd. Estoque");
+            produtosDataGridView.Columns.Add("IsActivated", "Ativo");
+            produtosDataGridView.Columns.Add("CreatedAt", "Criado em");
+            produtosDataGridView.Columns.Add("UpdatedAt", "Atualizado em");
+            produtosDataGridView.Columns.Add("DeletedAt", "Deletado em");
         }
 
         private void CarregarDados()
         {
-            ClientService clientService = new ClientService();
-            var response = clientService.GetClients();
+            ProductService productService = new ProductService();
+            var response = productService.GetProducts();
 
             if (response.Success)
             {
-                List<Client> clients = (List<Client>)response.Data;
-                clientesDataGridView.Rows.Clear();
-                foreach (Client client in clients)
+                List<Product> products = (List<Product>)response.Data;
+                produtosDataGridView.Rows.Clear();
+                foreach (Product product in products)
                 {
-                    DataGridViewRow row = (DataGridViewRow)clientesDataGridView.Rows[0].Clone();
-                    row.Cells[0].Value = client.Id;
-                    row.Cells[1].Value = client.Name;
-                    row.Cells[2].Value = client.Phone;
-                    row.Cells[3].Value = client.Email;
-                    row.Cells[4].Value = client.Address;
-                    row.Cells[5].Value = client.IsActivated ? "Sim" : "Não";
-                    row.Cells[6].Value = client.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss");
-                    row.Cells[7].Value = client.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss");
-                    row.Cells[8].Value = client.DeletedAt != null ? client.DeletedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+                    DataGridViewRow row = (DataGridViewRow)produtosDataGridView.Rows[0].Clone();
+                    row.Cells[0].Value = product.Id;
+                    row.Cells[1].Value = product.Name;
+                    row.Cells[2].Value = product.Price;
+                    row.Cells[3].Value = product.QuantityStock;
+                    row.Cells[4].Value = product.IsActivated ? "Sim" : "Não";
+                    row.Cells[5].Value = product.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss");
+                    row.Cells[6].Value = product.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss");
+                    row.Cells[7].Value = product.DeletedAt != null ? product.DeletedAt.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
 
-                    clientesDataGridView.Rows.Add(row);
+                    produtosDataGridView.Rows.Add(row);
                 }
             }
         }
@@ -272,25 +282,25 @@ namespace WorldBooksDesktop
         {
             idTxtBox.Text = "";
             nomeTxtBox.Text = "";
-            // telefoneTxtBox.Text = "";
-            // emailTxtBox.Text = "";
-            // enderecoTxtBox.Text = "";
+            descricaoTxtBox.Text = "";
+            precoNumeric.Value = 0;
+            qtdEstoqueNumeric.Value = 0;
         }
 
         private void HabilitarCamposEditaveis()
         {
             nomeTxtBox.Enabled = true;
-            // telefoneTxtBox.Enabled = true;
-            // emailTxtBox.Enabled = true;
-            // enderecoTxtBox.Enabled = true;
+            descricaoTxtBox.Enabled = true;
+            precoNumeric.Enabled = true;
+            qtdEstoqueNumeric.Enabled = true;
         }
 
         private void DesabilitarCamposEditaveis()
         {
             nomeTxtBox.Enabled = false;
-            // telefoneTxtBox.Enabled = false;
-            // emailTxtBox.Enabled = false;
-            // enderecoTxtBox.Enabled = false;
+            descricaoTxtBox.Enabled = false;
+            precoNumeric.Enabled = false;
+            qtdEstoqueNumeric.Enabled = false;
         }
         #endregion
     }

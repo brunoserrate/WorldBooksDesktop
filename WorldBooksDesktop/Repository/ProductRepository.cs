@@ -119,7 +119,7 @@ namespace WorldBooksDesktop.Repository
                     IsActivated = reader.GetBoolean("is_activated"),
                     CreatedAt = reader.GetDateTime("created_at"),
                     UpdatedAt = reader.GetDateTime("updated_at"),
-                    DeletedAt = reader.GetDateTime("deleted_at")
+                    DeletedAt = reader.IsDBNull(reader.GetOrdinal("deleted_at")) ? (DateTime?)null : reader.GetDateTime("deleted_at")
                 };
             }
 
@@ -152,7 +152,7 @@ namespace WorldBooksDesktop.Repository
                     IsActivated = reader.GetBoolean("is_activated"),
                     CreatedAt = reader.GetDateTime("created_at"),
                     UpdatedAt = reader.GetDateTime("updated_at"),
-                    DeletedAt = reader.GetDateTime("deleted_at")
+                    DeletedAt = reader.IsDBNull(reader.GetOrdinal("deleted_at")) ? (DateTime?)null : reader.GetDateTime("deleted_at")
                 };
 
                 products.Add(product);
