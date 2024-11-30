@@ -51,7 +51,11 @@ namespace WorldBooksDesktop
 
         private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SalesPanel salesPanel = new SalesPanel
+            {
+                MdiParent = this
+            };
+            salesPanel.Show();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using DotNetEnv;
 using MySql.Data.MySqlClient;
+using WorldBooksDesktop.Models;
 using WorldBooksDesktop.Utils;
 
 namespace WorldBooksDesktop
@@ -13,16 +14,6 @@ namespace WorldBooksDesktop
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            MainPanel mainPanel = new MainPanel();
-            mainPanel.ShowDialog();
-
-            this.Close();
-        }
-
         private void LoginPanel_Load(object sender, EventArgs e)
         {
             string connectionString = EnvHolder.Instance.ConnectionString;
@@ -31,6 +22,20 @@ namespace WorldBooksDesktop
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
+        {
+            LogUser();
+        }
+
+        private void passwordTxtBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                LogUser();
+            }
+        }
+
+        private void LogUser()
         {
             string username = loginTxtBox.Text;
             string password = passwordTxtBox.Text;
@@ -56,6 +61,19 @@ namespace WorldBooksDesktop
                 return;
             }
 
+            User user = new User();
+
+            while (reader.Read())
+            {
+                user.Id = reader.GetInt32("id");
+                user.Username = reader.GetString("username");
+                user.Password = reader.GetString("password");
+                user.Name = reader.GetString("name");
+                user.Email = reader.GetString("email");
+            }
+
+            Program.SetLoggedUser(user);
+
             DatabaseConnector.Instance("").CloseConnection(connection);
 
             this.Hide();
@@ -65,5 +83,6 @@ namespace WorldBooksDesktop
 
             this.Close();
         }
+
     }
 }

@@ -69,8 +69,6 @@
             this.produtosDataGridView.Size = new System.Drawing.Size(776, 198);
             this.produtosDataGridView.TabIndex = 0;
             this.produtosDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.salesItemDataGridView_CellEnter);
-            this.produtosDataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.produtosDataGridView_RowsAdded);
-            this.produtosDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.produtosDataGridView_RowsRemoved);
             // 
             // toolStrip1
             // 
@@ -192,6 +190,7 @@
             // 
             // descontoNumeric
             // 
+            this.descontoNumeric.DecimalPlaces = 2;
             this.descontoNumeric.Location = new System.Drawing.Point(69, 99);
             this.descontoNumeric.Maximum = new decimal(new int[] {
             50,

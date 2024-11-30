@@ -55,7 +55,7 @@ CREATE TABLE `sale_items` (
   `sale_id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int NOT NULL,
-  `discount_amount` int NOT NULL,
+  `discount_amount` decimal(5,2) NOT NULL,
   `unit_price` decimal(10,2) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),

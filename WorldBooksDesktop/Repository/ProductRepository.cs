@@ -162,5 +162,40 @@ namespace WorldBooksDesktop.Repository
 
             return new Response(true, "Produtos listados com sucesso", products);
         }
+
+        public Response GetActiveProducts()
+        {
+            MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
+
+            DatabaseConnector.Instance("").OpenConnection(connection);
+
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM products WHERE is_activated = 1", connection);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            List<Product> products = new List<Product>();
+
+            while (reader.Read())
+            {
+                Product product = new Product
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("name"),
+                    Description = reader.GetString("description"),
+                    Price = reader.GetDecimal("price"),
+                    QuantityStock = reader.GetInt32("quantity_stock"),
+                    IsActivated = reader.GetBoolean("is_activated"),
+                    CreatedAt = reader.GetDateTime("created_at"),
+                    UpdatedAt = reader.GetDateTime("updated_at"),
+                    DeletedAt = reader.IsDBNull(reader.GetOrdinal("deleted_at")) ? (DateTime?)null : reader.GetDateTime("deleted_at")
+                };
+
+                products.Add(product);
+            }
+
+            DatabaseConnector.Instance("").CloseConnection(connection);
+
+            return new Response(true, "Produtos listados com sucesso", products);
+        }
     }
 }

@@ -9,9 +9,38 @@ namespace WorldBooksDesktop.Repository
 {
     internal class SalesItemRepository : IRepository
     {
+        public SalesItemRepository()
+        {
+            string connectionString = EnvHolder.Instance.ConnectionString;
+
+            DatabaseConnector.Instance(connectionString);
+
+            MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
+
+            DatabaseConnector.Instance("").OpenConnection(connection);
+
+            MySqlCommand cmd = new MySqlCommand(@"CREATE TABLE IF NOT EXISTS sale_items (
+                    id int NOT NULL AUTO_INCREMENT,
+                    sale_id int NOT NULL,
+                    product_id int NOT NULL,
+                    quantity int NOT NULL,
+                    discount_amount decimal(5,2) NOT NULL,
+                    unit_price decimal(10,2) NOT NULL,
+                    total_price decimal(10,2) NOT NULL,
+                    PRIMARY KEY (id),
+                    FOREIGN KEY (sale_id) REFERENCES sales(id),
+                    FOREIGN KEY (product_id) REFERENCES products(id)
+                )", connection);
+
+            cmd.ExecuteNonQuery();
+
+            DatabaseConnector.Instance("").CloseConnection(connection);
+        }
+
         public Response Create(object obj)
         {
             SalesItem salesItem = (SalesItem)obj;
+
             MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
 
             DatabaseConnector.Instance("").OpenConnection(connection);
@@ -20,11 +49,13 @@ namespace WorldBooksDesktop.Repository
             cmd.Parameters.AddWithValue("@sale_id", salesItem.SaleId);
             cmd.Parameters.AddWithValue("@product_id", salesItem.ProductId);
             cmd.Parameters.AddWithValue("@quantity", salesItem.Quantity);
-            cmd.Parameters.AddWithValue("@discount_amount", salesItem.Discount);
-            cmd.Parameters.AddWithValue("@unit_price", salesItem.UnitPrice);
-            cmd.Parameters.AddWithValue("@total_price", salesItem.TotalPrice);
+            cmd.Parameters.AddWithValue("@discount_amount", Math.Round(salesItem.Discount, 2));
+            cmd.Parameters.AddWithValue("@unit_price", Math.Round(salesItem.UnitPrice, 2));
+            cmd.Parameters.AddWithValue("@total_price", Math.Round(salesItem.TotalPrice, 2));
 
             cmd.ExecuteNonQuery();
+
+            salesItem.Id = (int)cmd.LastInsertedId;
 
             DatabaseConnector.Instance("").CloseConnection(connection);
 

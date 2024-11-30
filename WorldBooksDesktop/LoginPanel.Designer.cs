@@ -62,10 +62,10 @@
             // 
             // loginTxtBox
             // 
-            this.loginTxtBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginTxtBox.Location = new System.Drawing.Point(332, 122);
             this.loginTxtBox.Name = "loginTxtBox";
-            this.loginTxtBox.Size = new System.Drawing.Size(333, 36);
+            this.loginTxtBox.Size = new System.Drawing.Size(333, 35);
             this.loginTxtBox.TabIndex = 2;
             // 
             // label2
@@ -90,12 +90,13 @@
             // 
             // passwordTxtBox
             // 
-            this.passwordTxtBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordTxtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordTxtBox.Location = new System.Drawing.Point(332, 194);
             this.passwordTxtBox.Name = "passwordTxtBox";
             this.passwordTxtBox.PasswordChar = '*';
-            this.passwordTxtBox.Size = new System.Drawing.Size(333, 36);
+            this.passwordTxtBox.Size = new System.Drawing.Size(333, 35);
             this.passwordTxtBox.TabIndex = 4;
+            this.passwordTxtBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTxtBox_KeyPress);
             // 
             // loginBtn
             // 

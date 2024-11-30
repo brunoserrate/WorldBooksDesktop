@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using WorldBooksDesktop.Service;
 using WorldBooksDesktop.Models;
 using WorldBooksDesktop.Utils;
-using Mysqlx.Expr;
+using System.Diagnostics;
 
 namespace WorldBooksDesktop
 {
@@ -42,21 +42,25 @@ namespace WorldBooksDesktop
             operacoesGroup.Visible = false;
             operacaoLabel.BackColor = ProjectColors.PrimaryBackground;
             operacaoLabel.Text = "Operações";
+            salvarVendaGroupBox.Visible = false;
+
+            DesabilitarCamposEditaveis();
+            clientesCombox.Enabled = false;
         }
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
-            int unitPrice = (int) products.Find(p => p.Id == int.Parse(produtosCombox.SelectedValue.ToString())).Price;
+            decimal unitPrice = (decimal) products.Find(p => p.Id == int.Parse(produtosCombox.SelectedValue.ToString())).Price;
             int quantity = int.Parse(qtdNumeric.Text);
-            int discount = int.Parse(descontoNumeric.Text);
-            int totalPrice = (unitPrice * (1 - (discount/100)) ) * quantity;
+            decimal discount = decimal.Parse(descontoNumeric.Text);
+            decimal totalPrice = unitPrice * quantity * (1 - discount/100);
 
             SalesItem salesItem = new SalesItem()
             {
                 Id = 0,
                 ProductId = produtosCombox.SelectedValue != null ? int.Parse(produtosCombox.SelectedValue.ToString()) : 0,
                 Quantity = int.Parse(qtdNumeric.Text),
-                Discount = int.Parse(descontoNumeric.Text),
+                Discount = decimal.Parse(descontoNumeric.Text),
                 UnitPrice = unitPrice,
                 TotalPrice = totalPrice,
             };
@@ -64,15 +68,6 @@ namespace WorldBooksDesktop
             if (operacaoLabel.Text.Contains("Incluir"))
             {
                 salesItems.Add(salesItem);
-
-                produtosDataGridView.Rows.Add(
-                    salesItems.Count,
-                    products.Find(p => p.Id == salesItem.ProductId).Name,
-                    salesItem.Quantity,
-                    salesItem.Discount,
-                    unitPrice,
-                    totalPrice
-                );
             }
             else if (operacaoLabel.Text.Contains("Editar"))
             {
@@ -81,7 +76,7 @@ namespace WorldBooksDesktop
 
                 item.ProductId = produtosCombox.SelectedValue != null ? int.Parse(produtosCombox.SelectedValue.ToString()) : 0;
                 item.Quantity = int.Parse(qtdNumeric.Text);
-                item.Discount = int.Parse(descontoNumeric.Text);
+                item.Discount = decimal.Parse(descontoNumeric.Text);
                 item.UnitPrice = unitPrice;
                 item.TotalPrice = totalPrice;
             }
@@ -115,6 +110,11 @@ namespace WorldBooksDesktop
             operacaoLabel.BackColor = ProjectColors.ConfirmBackground;
 
             HabilitarCamposEditaveis();
+
+            if (salesItems.Count <= 0) {
+                clientesCombox.SelectedIndex = -1;
+                clientesCombox.Enabled = true;
+            }
         }
 
         private void editarBtn_Click(object sender, EventArgs e)
@@ -165,7 +165,12 @@ namespace WorldBooksDesktop
 
         private void salesItemDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0)
+            if (operacaoLabel.Text.Contains("Incluir") || operacaoLabel.Text.Contains("Editar") )
+            {
+                return;
+            }
+
+            if (e.RowIndex < 0 || e.RowIndex >= salesItems.Count)
             {
                 return;
             }
@@ -173,7 +178,9 @@ namespace WorldBooksDesktop
             indiceTxtBox.Text = salesItems[e.RowIndex].Id.ToString();
             produtosCombox.SelectedValue = salesItems[e.RowIndex].ProductId;
             qtdNumeric.Value = salesItems[e.RowIndex].Quantity;
-            descontoNumeric.Value = salesItems[e.RowIndex].Discount;
+            string discount = salesItems[e.RowIndex].Discount.ToString().Replace(" %", "");
+
+            descontoNumeric.Value = decimal.Parse(discount);
 
             operacoesGroup.Visible = true;
             DesabilitarCamposEditaveis();
@@ -185,35 +192,21 @@ namespace WorldBooksDesktop
             this.Close();
         }
 
-        private void produtosDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-
-            if (produtosDataGridView.Rows.Count > 0)
-            {
-                salvarVendaGroupBox.Visible = true;
-            }
-            else {
-                salvarVendaGroupBox.Visible = false;
-                clientesCombox.Enabled = true;
-            }
-
-        }
-
-        private void produtosDataGridView_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            if (produtosDataGridView.Rows.Count > 0)
-            {
-                salvarVendaGroupBox.Visible = true;
-            }
-            else {
-                salvarVendaGroupBox.Visible = false;
-                clientesCombox.Enabled = true;
-            }
-        }
-
         private void clientesCombox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            client = clients.Find(c => c.Id == int.Parse(clientesCombox.SelectedValue.ToString()));
+            if (clientesCombox.SelectedIndex < 0 || clientesCombox.SelectedValue == null)
+            {
+                return;
+            }
+
+            if (int.TryParse(clientesCombox.SelectedValue.ToString(), out int clientId))
+            {
+                client = clients.Find(c => c.Id == clientId);
+            }
+            else
+            {
+                return;
+            }
 
             clientesCombox.Enabled = false;
         }
@@ -229,6 +222,7 @@ namespace WorldBooksDesktop
             Sale sale = new Sale()
             {
                 Id = 0,
+                UserId = Program.LoggedUser.Id,
                 ClientId = client.Id,
                 TotalAmount = salesItems.Sum(s => s.TotalPrice),
                 SaleDate = DateTime.Now,
@@ -249,6 +243,7 @@ namespace WorldBooksDesktop
             MostrarItensGrid();
             salvarVendaGroupBox.Visible = false;
             clientesCombox.Enabled = true;
+            clientesCombox.SelectedIndex = -1;
         }
         #endregion
 
@@ -256,7 +251,7 @@ namespace WorldBooksDesktop
 
         private void CarregarProdutos()
         {
-            var response = productService.GetProducts();
+            var response = productService.GetActiveProducts();
 
             if (!response.Success)
             {
@@ -269,6 +264,8 @@ namespace WorldBooksDesktop
             produtosCombox.DataSource = products;
             produtosCombox.DisplayMember = "Name";
             produtosCombox.ValueMember = "Id";
+
+            produtosCombox.SelectedIndex = -1;
         }
 
         private void CarregarClientes()
@@ -286,6 +283,8 @@ namespace WorldBooksDesktop
             clientesCombox.DataSource = clients;
             clientesCombox.DisplayMember = "Name";
             clientesCombox.ValueMember = "Id";
+
+            clientesCombox.SelectedIndex = -1;
         }
 
         private void CriarColunasDataGrid()
@@ -302,17 +301,27 @@ namespace WorldBooksDesktop
         private void MostrarItensGrid()
         {
             produtosDataGridView.Rows.Clear();
+            int index = 1;
 
             foreach (var item in salesItems)
             {
                 produtosDataGridView.Rows.Add(
-                    item.Id,
+                    index++,
                     products.Find(p => p.Id == item.ProductId).Name,
                     item.Quantity,
-                    item.Discount,
-                    item.UnitPrice,
-                    item.TotalPrice
+                    item.Discount.ToString() + " %",
+                    "R$ " + Math.Round(item.UnitPrice, 2).ToString(),
+                    "R$ " + Math.Round(item.TotalPrice, 2).ToString()
                 );
+            }
+
+            if (produtosDataGridView.Rows.Count > 0)
+            {
+                salvarVendaGroupBox.Visible = true;
+            }
+            else {
+                salvarVendaGroupBox.Visible = false;
+                clientesCombox.Enabled = true;
             }
         }
 

@@ -32,7 +32,9 @@ namespace WorldBooksDesktop.Service
                 return response;
             }
 
-            Response salesItemResponse = _salesItemService.CreateSalesItems(items, sale.Id);
+            Sale saleSaved = (Sale)createSaleResponse.Data;
+
+            Response salesItemResponse = _salesItemService.CreateSalesItems(items, saleSaved.Id);
 
             if (!salesItemResponse.Success)
             {

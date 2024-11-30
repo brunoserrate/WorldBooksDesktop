@@ -6,7 +6,7 @@ namespace WorldBooksDesktop.Service
 {
     internal class ProductService
     {
-        private readonly IRepository _repository;
+        private readonly ProductRepository _repository;
 
         public ProductService()
         {
@@ -41,6 +41,11 @@ namespace WorldBooksDesktop.Service
         public Response GetProducts()
         {
             return _repository.Get();
+        }
+
+        public Response GetActiveProducts()
+        {
+            return _repository.GetActiveProducts();
         }
 
         public Response DeleteProduct(int id)
