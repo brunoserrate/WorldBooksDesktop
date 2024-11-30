@@ -19,7 +19,7 @@ namespace WorldBooksDesktop
 
         private void MainPanel_Load(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -47,6 +47,11 @@ namespace WorldBooksDesktop
                 MdiParent = this
             };
             produtosPanel.Show();
+        }
+
+        private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

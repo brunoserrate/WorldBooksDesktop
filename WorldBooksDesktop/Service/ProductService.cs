@@ -13,24 +13,24 @@ namespace WorldBooksDesktop.Service
             _repository = new ProductRepository();
         }
 
-        public Response Create(Product client)
+        public Response Create(Product product)
         {
-            if (!IsProductValid(client, true))
+            if (!IsProductValid(product, true))
             {
                 return new Response(false, "Campos obrigatórios não preenchidos", null);
             }
 
-            return _repository.Create(client);
+            return _repository.Create(product);
         }
 
-        public Response UpdateProduct(Product client)
+        public Response UpdateProduct(Product product)
         {
-            if (!IsProductValid(client, false))
+            if (!IsProductValid(product, false))
             {
                 return new Response(false, "Campos obrigatórios não preenchidos", null);
             }
 
-            return _repository.Update(client);
+            return _repository.Update(product);
         }
 
         public Response GetProduct(int id)
@@ -48,11 +48,11 @@ namespace WorldBooksDesktop.Service
             return _repository.Delete(id);
         }
 
-        private bool IsProductValid(Product client, bool newProduct)
+        private bool IsProductValid(Product product, bool newProduct)
         {
-            return !string.IsNullOrEmpty(client.Name) &&
-                !string.IsNullOrEmpty(client.Description) &&
-                client.Price > 0;
+            return !string.IsNullOrEmpty(product.Name) &&
+                !string.IsNullOrEmpty(product.Description) &&
+                product.Price > 0;
         }
     }
 }

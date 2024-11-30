@@ -268,6 +268,8 @@
     </Compile>
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Models\SalesItem.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="ProdutosPanel.cs">
       <SubType>Form</SubType>
@@ -280,9 +282,19 @@
     <Compile Include="Repository\ClientRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\SaleRepository.cs" />
+    <Compile Include="Repository\SalesItemRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="SalesPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesPanel.Designer.cs">
+      <DependentUpon>SalesPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service\ClientService.cs" />
     <Compile Include="Service\ProductService.cs" />
+    <Compile Include="Service\SaleService.cs" />
+    <Compile Include="Service\SalesItemService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="UsuariosPanel.cs">
       <SubType>Form</SubType>
@@ -316,6 +328,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SalesPanel.resx">
+      <DependentUpon>SalesPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UsuariosPanel.resx">
       <DependentUpon>UsuariosPanel.cs</DependentUpon>
     </EmbeddedResource>
