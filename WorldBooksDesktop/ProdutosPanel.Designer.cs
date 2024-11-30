@@ -36,6 +36,10 @@
             this.deleteBtn = new System.Windows.Forms.ToolStripButton();
             this.closeBtn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.qtdEstoqueNumeric = new System.Windows.Forms.NumericUpDown();
+            this.precoNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.descricaoTxtBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.nomeTxtBox = new System.Windows.Forms.TextBox();
@@ -46,16 +50,12 @@
             this.cancelarBtn = new System.Windows.Forms.Button();
             this.operacoesGroup = new System.Windows.Forms.GroupBox();
             this.operacaoLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.precoNumeric = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.clientesDataGridView)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.operacoesGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qtdEstoqueNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.precoNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.operacoesGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // clientesDataGridView
@@ -118,10 +118,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.qtdEstoqueNumeric);
             this.groupBox1.Controls.Add(this.precoNumeric);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.descricaoTxtBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.nomeTxtBox);
@@ -134,6 +134,49 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Livro";
+            // 
+            // qtdEstoqueNumeric
+            // 
+            this.qtdEstoqueNumeric.Location = new System.Drawing.Point(82, 234);
+            this.qtdEstoqueNumeric.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.qtdEstoqueNumeric.Name = "qtdEstoqueNumeric";
+            this.qtdEstoqueNumeric.Size = new System.Drawing.Size(146, 20);
+            this.qtdEstoqueNumeric.TabIndex = 13;
+            // 
+            // precoNumeric
+            // 
+            this.precoNumeric.DecimalPlaces = 2;
+            this.precoNumeric.Location = new System.Drawing.Point(82, 206);
+            this.precoNumeric.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            131072});
+            this.precoNumeric.Name = "precoNumeric";
+            this.precoNumeric.Size = new System.Drawing.Size(146, 20);
+            this.precoNumeric.TabIndex = 12;
+            this.precoNumeric.ThousandsSeparator = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Descrição";
+            // 
+            // descricaoTxtBox
+            // 
+            this.descricaoTxtBox.Location = new System.Drawing.Point(82, 82);
+            this.descricaoTxtBox.Multiline = true;
+            this.descricaoTxtBox.Name = "descricaoTxtBox";
+            this.descricaoTxtBox.Size = new System.Drawing.Size(684, 100);
+            this.descricaoTxtBox.TabIndex = 10;
             // 
             // label4
             // 
@@ -231,49 +274,6 @@
             this.operacaoLabel.Text = "Consulta";
             this.operacaoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(82, 82);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(684, 100);
-            this.textBox1.TabIndex = 10;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 85);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Descrição";
-            // 
-            // precoNumeric
-            // 
-            this.precoNumeric.DecimalPlaces = 2;
-            this.precoNumeric.Location = new System.Drawing.Point(82, 206);
-            this.precoNumeric.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            131072});
-            this.precoNumeric.Name = "precoNumeric";
-            this.precoNumeric.Size = new System.Drawing.Size(146, 20);
-            this.precoNumeric.TabIndex = 12;
-            this.precoNumeric.ThousandsSeparator = true;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(82, 234);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(146, 20);
-            this.numericUpDown2.TabIndex = 13;
-            // 
             // ProdutosPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,9 +293,9 @@
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.operacoesGroup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.qtdEstoqueNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.precoNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            this.operacoesGroup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,8 +321,8 @@
         private System.Windows.Forms.GroupBox operacoesGroup;
         private System.Windows.Forms.Label operacaoLabel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.TextBox descricaoTxtBox;
+        private System.Windows.Forms.NumericUpDown qtdEstoqueNumeric;
         private System.Windows.Forms.NumericUpDown precoNumeric;
     }
 }
