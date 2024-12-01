@@ -1,4 +1,5 @@
-﻿using WorldBooksDesktop.Repository;
+﻿using System;
+using WorldBooksDesktop.Repository;
 using WorldBooksDesktop.Utils;
 using WorldBooksDesktop.Models;
 using System.Collections.Generic;
@@ -8,13 +9,11 @@ namespace WorldBooksDesktop.Service
     public class SaleService
     {
         private readonly SaleRepository _saleRepository;
-        private readonly ProductRepository _productRepository;
         private readonly SalesItemService _salesItemService;
 
         public SaleService()
         {
             _saleRepository = new SaleRepository();
-            _productRepository = new ProductRepository();
 
             _salesItemService = new SalesItemService();
         }
@@ -44,6 +43,21 @@ namespace WorldBooksDesktop.Service
             }
 
             return response;
+        }
+
+        public Response GetSales()
+        {
+            return _saleRepository.Get();
+        }
+
+        public Response GetSale(int id)
+        {
+            return _saleRepository.GetById(id);
+        }
+
+        public Response FilterSales(DateTime startDate, DateTime endDate)
+        {
+            return _saleRepository.FilterSales(startDate, endDate);
         }
     }
 }

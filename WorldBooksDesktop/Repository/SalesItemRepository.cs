@@ -114,5 +114,38 @@ namespace WorldBooksDesktop.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Response GetBySaleId(int saleId)
+        {
+            MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
+            DatabaseConnector.Instance("").OpenConnection(connection);
+
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM sale_items WHERE sale_id = @sale_id", connection);
+            cmd.Parameters.AddWithValue("@sale_id", saleId);
+
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            List<SalesItem> salesItems = new List<SalesItem>();
+
+            while (dataReader.Read())
+            {
+                SalesItem salesItem = new SalesItem
+                {
+                    Id = dataReader.GetInt32("id"),
+                    SaleId = dataReader.GetInt32("sale_id"),
+                    ProductId = dataReader.GetInt32("product_id"),
+                    Quantity = dataReader.GetInt32("quantity"),
+                    Discount = dataReader.GetInt32("discount_amount"),
+                    UnitPrice = dataReader.GetDecimal("unit_price"),
+                    TotalPrice = dataReader.GetDecimal("total_price")
+                };
+
+                salesItems.Add(salesItem);
+            }
+
+            DatabaseConnector.Instance("").CloseConnection(connection);
+
+            return new Response(true, "Itens de venda retornados com sucesso", salesItems);
+        }
     }
 }

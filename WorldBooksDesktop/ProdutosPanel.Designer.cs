@@ -285,6 +285,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.produtosDataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProdutosPanel";
             this.Text = "World Books - Livros";
             this.Load += new System.EventHandler(this.ProdutosPanel_Load);

@@ -70,6 +70,11 @@ namespace WorldBooksDesktop.Service
             return response;
         }
 
+        public Response GetSalesItemsBySaleId(int saleId)
+        {
+            return _salesItemRepository.GetBySaleId(saleId);
+        }
+
         private Response CheckProductsAvailability(List<SalesItem> items)
         {
             Response response = new Response(true, "Produtos disponíveis", null);

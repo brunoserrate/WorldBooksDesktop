@@ -103,6 +103,7 @@
             this.consultarVendasToolStripMenuItem.Name = "consultarVendasToolStripMenuItem";
             this.consultarVendasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.consultarVendasToolStripMenuItem.Text = "Consultar Vendas";
+            this.consultarVendasToolStripMenuItem.Click += new System.EventHandler(this.consultarVendasToolStripMenuItem_Click);
             // 
             // MainPanel
             // 

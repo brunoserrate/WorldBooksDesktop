@@ -270,6 +270,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.clientesDataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ClientesPanel";
             this.Text = "World Books - Clientes";
             this.Load += new System.EventHandler(this.ClientesPanel_Load);
