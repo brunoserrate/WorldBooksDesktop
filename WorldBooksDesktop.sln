@@ -5,6 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldBooksDesktop", "WorldBooksDesktop\WorldBooksDesktop.csproj", "{820B8AB8-6756-493B-B9DE-32F3D255AE48}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{1A0DD1A6-99EB-459A-B293-6D749953F8AD}"
+	ProjectSection(SolutionItems) = preProject
+		WorldBooksDesktop\Resources\wb_icon.ico = WorldBooksDesktop\Resources\wb_icon.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
