@@ -270,7 +270,7 @@ namespace WorldBooksDesktop
 
         private void CarregarClientes()
         {
-            var response = clientService.GetClients();
+            var response = clientService.GetActiveClients();
 
             if (!response.Success)
             {

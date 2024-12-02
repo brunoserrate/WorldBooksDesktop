@@ -163,6 +163,9 @@ namespace WorldBooksDesktop
             {
                 Client client = _clientService.GetClient(sale.ClientId).Data as Client;
 
+                if (client == null)
+                    continue;
+
                 vendasDataGridView.Rows.Add(
                     sale.Id,
                     client.Name,

@@ -211,6 +211,40 @@ namespace WorldBooksDesktop.Repository
             return new Response(true, "Cliente encontrado com sucesso", client);
         }
 
+        public Response GetActiveClients()
+        {
+            MySqlConnection connection = DatabaseConnector.Instance("").GetConnection();
+
+            DatabaseConnector.Instance("").OpenConnection(connection);
+
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM clients WHERE is_activated = 1", connection);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            List<Client> clients = new List<Client>();
+
+            while (reader.Read())
+            {
+                Client client = new Client
+                {
+                    Id = reader.GetInt32("id"),
+                    Name = reader.GetString("name"),
+                    Email = reader.GetString("email"),
+                    Phone = reader.GetString("phone"),
+                    Address = reader.GetString("address"),
+                    IsActivated = reader.GetBoolean("is_activated"),
+                    CreatedAt = reader.GetDateTime("created_at"),
+                    UpdatedAt = reader.GetDateTime("updated_at"),
+                    DeletedAt = reader.IsDBNull(reader.GetOrdinal("deleted_at")) ? (DateTime?)null : reader.GetDateTime("deleted_at")
+                };
+
+                clients.Add(client);
+            }
+
+            DatabaseConnector.Instance("").CloseConnection(connection);
+
+            return new Response(true, "Clientes listados com sucesso", clients);
+        }
 
     }
 }

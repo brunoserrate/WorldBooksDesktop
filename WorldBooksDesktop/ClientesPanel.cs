@@ -153,9 +153,9 @@ namespace WorldBooksDesktop
                 return;
             }
 
-            User user = (User)responseCheck.Data;
+            Client client = (Client)responseCheck.Data;
 
-            if (!user.IsActivated) {
+            if (!client.IsActivated) {
                 MessageBox.Show("Cliente já esta desativado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -163,7 +163,7 @@ namespace WorldBooksDesktop
             operacaoLabel.Text = "Deletar";
             operacaoLabel.BackColor = ProjectColors.CancelBackground;
 
-            var response = MessageBox.Show("Deseja realmente deletar o cliente: " + user.Id + " - " + user.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var response = MessageBox.Show("Deseja realmente deletar o cliente: " + client.Id + " - " + client.Name, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (response == DialogResult.No)
             {

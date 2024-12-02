@@ -6,7 +6,7 @@ namespace WorldBooksDesktop.Service
 {
     internal class ClientService
     {
-        private readonly IRepository _repository;
+        private readonly ClientRepository _repository;
 
         public ClientService()
         {
@@ -41,6 +41,11 @@ namespace WorldBooksDesktop.Service
         public Response GetClients()
         {
             return _repository.Get();
+        }
+
+        public Response GetActiveClients()
+        {
+            return _repository.GetActiveClients();
         }
 
         public Response DeleteClient(int id)
